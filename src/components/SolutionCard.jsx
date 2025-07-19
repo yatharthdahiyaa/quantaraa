@@ -1,41 +1,28 @@
-// src/components/ServiceCard.jsx
+// src/components/SolutionCard.jsx
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Button from './Button';
 import Card from './Card';
-import Modal from './Modal'; // Import the Modal component
+import Modal from './Modal';
 
-const ServiceCard = ({ icon, title, description, longDescription, features, caseStudyLink, demoVideoUrl, link, className = '' }) => {
+const SolutionCard = ({ icon, title, description, longDescription, features, caseStudyLink, demoVideoUrl, className = '' }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <Card className={`flex flex-col items-center text-center p-8 border border-gray-100 ${className}`}>
-        {/* Icon (emoji or custom SVG/Image) */}
-        <span className="text-6xl mb-5 inline-block transform transition-transform duration-300 group-hover:scale-110" style={{ color: icon.color }}>
-          {icon.emoji}
-        </span>
-        {/* Title */}
+        <span className="text-6xl mb-5 inline-block transform transition-transform duration-300 group-hover:scale-110">{icon}</span>
         <h3 className="text-2xl font-bold text-gray-800 mb-3">{title}</h3>
-        {/* Description */}
         <p className="text-gray-600 text-base mb-5 flex-grow">{description}</p>
-        {/* Learn More button opens modal */}
         <Button onClick={() => setIsModalOpen(true)} variant="outline" className="mt-auto">
           Learn More
         </Button>
-        {/* Link to main page (optional, if the card should also navigate) */}
-        {link && (
-          <Link to={link} className="text-indigo-600 hover:underline text-sm mt-3">
-            Go to {title} Page
-          </Link>
-        )}
       </Card>
 
-      {/* Service Detail Modal */}
+      {/* Solution Detail Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={title}>
         <div className="space-y-6">
           <div className="text-center">
-            <span className="text-7xl mb-4 inline-block" style={{ color: icon.color }}>{icon.emoji}</span>
+            <span className="text-7xl mb-4 inline-block">{icon}</span>
             <h3 className="text-3xl font-bold text-gray-800">{title}</h3>
           </div>
           <p className="text-lg text-gray-800 leading-relaxed">{longDescription || description}</p>
@@ -86,4 +73,4 @@ const ServiceCard = ({ icon, title, description, longDescription, features, case
   );
 };
 
-export default ServiceCard;
+export default SolutionCard;

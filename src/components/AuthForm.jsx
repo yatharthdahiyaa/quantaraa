@@ -1,19 +1,19 @@
 // src/components/AuthForm.jsx
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; // Make sure Link is imported for Forgot Password
-import Button from './Button'; // Ensure this path is correct ('./Button' if in same components folder)
+import { Link } from 'react-router-dom';
+import Button from './Button';
+import Card from './Card'; // Using Card for the form container
 
 const AuthForm = ({ mode, onAuthSuccess }) => {
   const [formData, setFormData] = useState({
-    companyId: '', // Used for both login and signup
-    email: '',     // Used for signup, optional for login if companyId is primary
+    companyId: '',
+    email: '',
     password: '',
-    confirmPassword: '', // Only for signup
+    confirmPassword: '',
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Determine current mode based on prop
   const isSignUpMode = mode === 'signup';
 
   const handleChange = (e) => {
@@ -32,7 +32,7 @@ const AuthForm = ({ mode, onAuthSuccess }) => {
       return;
     }
 
-    const apiEndpoint = isSignUpMode ? '/api/auth/signup' : '/api/auth/signin'; // TODO: Replace with your actual Node.js backend endpoints
+    const apiEndpoint = isSignUpMode ? '/api/auth/signup' : '/api/auth/signin';
 
     try {
       const payload = isSignUpMode
@@ -51,7 +51,7 @@ const AuthForm = ({ mode, onAuthSuccess }) => {
         const data = await response.json();
         console.log(`${isSignUpMode ? 'Sign up' : 'Sign in'} successful!`, data);
         if (onAuthSuccess) {
-          onAuthSuccess(data.dashboardUrl || '/dashboard-placeholder'); // Use actual dashboard URL from backend
+          onAuthSuccess(data.dashboardUrl || '/dashboard-placeholder');
         }
       } else {
         const errorData = await response.json();
@@ -66,13 +66,13 @@ const AuthForm = ({ mode, onAuthSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    <Card className="p-8 shadow-lg w-full"> {/* Using Card component here */}
       <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
         {isSignUpMode ? 'Create Your Account' : 'Industry Login'}
       </h2>
 
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 animate-fade-in">
           <span className="block sm:inline">{error}</span>
         </div>
       )}
@@ -87,7 +87,7 @@ const AuthForm = ({ mode, onAuthSuccess }) => {
           name="companyId"
           value={formData.companyId}
           onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
           required
         />
       </div>
@@ -103,7 +103,7 @@ const AuthForm = ({ mode, onAuthSuccess }) => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
             required={isSignUpMode}
           />
         </div>
@@ -119,7 +119,7 @@ const AuthForm = ({ mode, onAuthSuccess }) => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
           required
         />
       </div>
@@ -135,7 +135,7 @@ const AuthForm = ({ mode, onAuthSuccess }) => {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
             required={isSignUpMode}
           />
         </div>
@@ -145,31 +145,29 @@ const AuthForm = ({ mode, onAuthSuccess }) => {
         {isLoading ? (isSignUpMode ? 'Signing Up...' : 'Logging In...') : (isSignUpMode ? 'Sign Up' : 'Login')}
       </Button>
 
-      <div className="mt-4 text-center">
+      <div className="mt-6 text-center">
         {isSignUpMode ? (
           <p className="text-gray-600 text-sm">
             Already have an account?{' '}
-            {/* The button below should change the mode in IndustryLoginPage, not redirect */}
-            <button type="button" onClick={() => onAuthSuccess('login')} className="text-indigo-600 hover:text-indigo-800 font-semibold">
+            <button type="button" onClick={() => onAuthSuccess('login')} className="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors">
               Login
             </button>
           </p>
         ) : (
           <>
-            <Link to="/forgot-password" className="text-sm text-indigo-600 hover:text-indigo-800">
+            <Link to="/forgot-password" className="text-sm text-indigo-600 hover:text-indigo-800 transition-colors">
               Forgot Password?
             </Link>
             <p className="text-gray-600 text-sm mt-2">
               Don't have an account?{' '}
-              {/* The button below should change the mode in IndustryLoginPage, not redirect */}
-              <button type="button" onClick={() => onAuthSuccess('signup')} className="text-indigo-600 hover:text-indigo-800 font-semibold">
+              <button type="button" onClick={() => onAuthSuccess('signup')} className="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors">
                 Sign Up
               </button>
             </p>
           </>
         )}
       </div>
-    </form>
+    </Card>
   );
 };
 

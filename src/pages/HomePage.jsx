@@ -1,20 +1,62 @@
 // src/pages/HomePage.jsx
-
-// Import all necessary components that HomePage uses
 import Button from '../components/Button';
 import PartnerLogos from '../components/PartnerLogos';
 import SectionHeader from '../components/SectionHeader';
 import ServiceCard from '../components/ServiceCard';
 import TestimonialCard from '../components/TestimonialCard';
 
-// Dummy data for demonstration
+// Dummy data for demonstration (expanded for modals)
 const servicesData = [
-  { icon: { emoji: '🧠', color: '#4F46E5' }, title: 'AI & Machine Learning', description: 'Transform operations with predictive analytics, automation, and intelligent decision-making.', link: '/ai-solutions' },
-  { icon: { emoji: '📡', color: '#10B981' }, title: 'Industrial IoT Solutions', description: 'Real-time monitoring, asset tracking, and data-driven insights for smart factories.', link: '/iot-solutions' },
-  { icon: { emoji: '⚙️', color: '#F59E0B' }, title: 'Rapid Prototyping', description: 'Accelerate innovation from concept to functional prototype with our agile engineering.', link: '/prototypes' },
-  { icon: { emoji: '🖨️', color: '#EF4444' }, title: 'Advanced 3D Printing', description: 'Precision manufacturing of complex parts with diverse materials for any industry.', link: '/3d-printing' },
-  { icon: { emoji: '🔌', color: '#6366F1' }, title: 'Custom Hardware & Boards', description: 'Bespoke PCB design and embedded systems for specialized industrial applications.', link: '/custom-hardware' },
-  { icon: { emoji: '📊', color: '#06B6D4' }, title: 'Data Visualization & Dashboards', description: 'Intuitive, interactive dashboards for actionable insights from your industrial data.', link: '/data-visualization' },
+  {
+    icon: { emoji: '🧠', color: '#4F46E5' },
+    title: 'AI & Machine Learning',
+    description: 'Transform operations with predictive analytics, automation, and intelligent decision-making.',
+    longDescription: 'Our AI solutions for manufacturing cover a broad spectrum, from predictive maintenance that anticipates equipment failures, to computer vision systems for automated quality control and anomaly detection. We implement machine learning models to optimize production schedules, reduce waste, and improve overall equipment effectiveness (OEE).',
+    features: ['Predictive Maintenance', 'Computer Vision QC', 'Process Optimization', 'Anomaly Detection', 'Robotics Integration'],
+    caseStudyLink: '/contact?inquiry=case-study-ai-manufacturing',
+    demoVideoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    link: '/ai-solutions',
+  },
+  {
+    icon: { emoji: '📡', color: '#10B981' },
+    title: 'Industrial IoT Solutions',
+    description: 'Real-time monitoring, asset tracking, and data-driven insights for smart factories.',
+    longDescription: 'Unlock the power of your industrial data with intelligent IoT platforms and intuitive dashboards. We provide end-to-end IoT solutions, from sensor deployment and data collection to cloud integration and advanced analytics. Our platforms enable real-time monitoring, remote control, and predictive insights for optimized operations.',
+    features: ['Real-time Data Streams', 'Customizable Dashboards', 'Remote Monitoring & Control', 'Edge Computing', 'Secure Infrastructure'],
+    link: '/iot-solutions',
+  },
+  {
+    icon: { emoji: '⚙️', color: '#F59E0B' },
+    title: 'Rapid Prototyping',
+    description: 'Accelerate innovation from concept to functional prototype with our agile engineering.',
+    longDescription: 'Our rapid prototyping services enable you to quickly iterate and test new product ideas. We combine advanced design tools with cutting-edge manufacturing techniques (like 3D printing and CNC machining) to transform your concepts into functional prototypes in record time, reducing development cycles and costs.',
+    features: ['Concept to Prototype', 'Iterative Design', 'Functional Testing', 'Cost-Effective Development'],
+    link: '/prototypes',
+  },
+  {
+    icon: { emoji: '🖨️', color: '#EF4444' },
+    title: 'Advanced 3D Printing',
+    description: 'Precision manufacturing of complex parts with diverse materials for any industry.',
+    longDescription: 'Leverage our state-of-the-art 3D printing facilities for high-precision manufacturing of complex parts, custom enclosures, and functional prototypes. We work with a wide range of materials including industrial-grade plastics, resins, and metals, ensuring your parts meet exact specifications for strength, durability, and finish.',
+    features: ['High Precision Printing', 'Diverse Material Options', 'Custom Part Manufacturing', 'Rapid Turnaround'],
+    link: '/3d-printing',
+  },
+  {
+    icon: { emoji: '🔌', color: '#6366F1' },
+    title: 'Custom Hardware & Boards',
+    description: 'Bespoke PCB design and embedded systems for specialized industrial applications.',
+    longDescription: 'We design and manufacture custom printed circuit boards (PCBs) and embedded systems tailored to your unique industrial requirements. From sensor integration and power management to robust connectivity solutions, our hardware engineering team delivers reliable, high-performance custom electronics for demanding environments.',
+    features: ['Custom PCB Design', 'Embedded Systems', 'Sensor Integration', 'Power Solutions', 'Industrial Grade Components'],
+    link: '/custom-hardware',
+  },
+  {
+    icon: { emoji: '📊', color: '#06B6D4' },
+    title: 'Data Visualization & Dashboards',
+    description: 'Intuitive, interactive dashboards for actionable insights from your industrial data.',
+    longDescription: 'Transform complex industrial data into clear, actionable insights with our custom data visualization and dashboard services. We design and develop intuitive, interactive dashboards that provide real-time visibility into your operations, helping you monitor KPIs, identify trends, and make informed decisions. We integrate with platforms like Grafana and ThingsBoard.',
+    features: ['Custom Dashboard Design', 'Real-time Data Display', 'Interactive Charts & Graphs', 'KPI Monitoring', 'Alerting & Reporting'],
+    link: '/iot-solutions',
+  },
 ];
 
 const testimonialsData = [
@@ -25,34 +67,28 @@ const testimonialsData = [
 
 const HomePage = () => {
   return (
-    // IMPORTANT: Navbar and Footer are NOT rendered here. They are in App.jsx.
-    // This div is the main container for the HomePage's unique content.
     <div className="flex flex-col bg-gray-50 font-sans antialiased">
-
-      {/* The <main> tag here is specific to the HomePage content, not the app's main layout */}
       <main className="flex-grow">
         {/* 1. Hero Section: The Grand Entrance */}
-        <section className="relative h-screen flex items-center justify-center text-white overflow-hidden bg-gradient-to-br from-indigo-800 to-purple-900">
+        <section className="relative h-screen flex items-center justify-center text-white overflow-hidden bg-gradient-to-br from-indigo-900 to-purple-950">
           {/* Background Visuals: Subtle, Dynamic, and High-Tech */}
-          <div className="absolute inset-0 z-0 opacity-20">
-            {/* For now, a placeholder div with a gradient/pattern */}
-            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/images/hero-bg-abstract.jpg')" }}></div>
-            {/* Overlay for depth */}
-            <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="absolute inset-0 z-0 opacity-30">
+            <div className="absolute inset-0 bg-cover bg-center animate-fade-in" style={{ backgroundImage: "url('/images/hero-bg-abstract.jpg')" }}></div>
+            <div className="absolute inset-0 bg-black opacity-60"></div>
           </div>
 
           <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6 animate-fade-in-up">
-              Future-Proof Your Industry with <span className="text-indigo-300">Intelligent Solutions</span>
+              Future-Proof Your Industry with <span className="text-indigo-300 drop-shadow-lg">Intelligent Solutions</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-10 opacity-90 animate-fade-in-up delay-200">
+            <p className="text-xl md:text-2xl mb-10 opacity-90 animate-fade-in-up-200">
               Quantaraa empowers businesses with cutting-edge AI, IoT, and advanced manufacturing technologies for unparalleled efficiency and innovation.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-400">
-              <Button to="/contact?inquiry=demo" variant="light-outline" className="min-w-[200px] hover:bg-white hover:text-indigo-800 border-2">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up-400">
+              <Button to="/contact?inquiry=demo" variant="light-outline" className="min-w-[200px] border-2">
                 Request a Demo
               </Button>
-              <Button to="/services" variant="primary" className="min-w-[200px] bg-white text-indigo-800 hover:bg-indigo-100">
+              <Button to="/iot-solutions" variant="primary" className="min-w-[200px] bg-white text-indigo-800 hover:bg-indigo-100">
                 Explore Our Solutions
               </Button>
             </div>
@@ -68,37 +104,47 @@ const HomePage = () => {
             <SectionHeader
               title="Our Core Solutions"
               subtitle="Innovating Across Industries"
-              className="mb-16"
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {servicesData.map((service, index) => (
-                <ServiceCard key={index} {...service} />
+                <ServiceCard
+                  key={index}
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  longDescription={service.longDescription}
+                  features={service.features}
+                  caseStudyLink={service.caseStudyLink}
+                  demoVideoUrl={service.demoVideoUrl}
+                  link={service.link}
+                  className="animate-fade-in-up-100" // Apply animation to cards
+                />
               ))}
             </div>
           </div>
         </section>
 
         {/* 4. "Why Choose Us" / Value Proposition Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <section className="py-20 bg-gradient-to-r from-blue-700 to-indigo-800 text-white">
           <div className="container mx-auto px-6 text-center">
             <SectionHeader
               title="Why Partner with Quantaraa?"
               subtitle="Unlocking Industrial Potential"
-              className="text-white mb-16"
+              className="text-white"
             />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              <div className="p-6 rounded-lg bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm shadow-xl hover:bg-opacity-20 transition-all duration-300 transform hover:-translate-y-2">
-                <span className="text-5xl mb-4 inline-block">🚀</span>
+              <div className="p-8 rounded-xl bg-white bg-opacity-15 backdrop-filter backdrop-blur-sm shadow-xl hover:bg-opacity-25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-102 animate-fade-in-up-200">
+                <span className="text-5xl mb-4 inline-block transform transition-transform duration-300 group-hover:scale-110">🚀</span>
                 <h3 className="text-2xl font-bold mb-3">Accelerated Innovation</h3>
                 <p className="text-lg opacity-90">Rapid prototyping and agile development cycles bring your ideas to market faster.</p>
               </div>
-              <div className="p-6 rounded-lg bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm shadow-xl hover:bg-opacity-20 transition-all duration-300 transform hover:-translate-y-2">
-                <span className="text-5xl mb-4 inline-block">💡</span>
+              <div className="p-8 rounded-xl bg-white bg-opacity-15 backdrop-filter backdrop-blur-sm shadow-xl hover:bg-opacity-25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-102 animate-fade-in-up-300">
+                <span className="text-5xl mb-4 inline-block transform transition-transform duration-300 group-hover:scale-110">💡</span>
                 <h3 className="text-2xl font-bold mb-3">Tailored Expertise</h3>
                 <p className="text-lg opacity-90">Custom solutions designed specifically for your unique industrial challenges.</p>
               </div>
-              <div className="p-6 rounded-lg bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm shadow-xl hover:bg-opacity-20 transition-all duration-300 transform hover:-translate-y-2">
-                <span className="text-5xl mb-4 inline-block">📈</span>
+              <div className="p-8 rounded-xl bg-white bg-opacity-15 backdrop-filter backdrop-blur-sm shadow-xl hover:bg-opacity-25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-102 animate-fade-in-up-400">
+                <span className="text-5xl mb-4 inline-block transform transition-transform duration-300 group-hover:scale-110">📈</span>
                 <h3 className="text-2xl font-bold mb-3">Tangible ROI</h3>
                 <p className="text-lg opacity-90">Solutions engineered to deliver measurable improvements in efficiency and cost savings.</p>
               </div>
@@ -113,28 +159,28 @@ const HomePage = () => {
               title="Impactful Transformations"
               subtitle="Our Success Stories"
             />
-            <div className="flex flex-col lg:flex-row items-center gap-12 bg-white p-8 rounded-xl shadow-2xl">
+            <div className="flex flex-col lg:flex-row items-center gap-12 bg-white p-10 rounded-xl shadow-2xl border border-gray-200 animate-fade-in-up-100">
               <div className="lg:w-1/2">
                 <img
-                  src="/images/case-study-factory.jpg" // Placeholder image
+                  src="/images/case-study-factory.jpg"
                   alt="Case Study: Smart Factory Optimization"
-                  className="rounded-lg shadow-lg w-full h-auto object-cover"
+                  className="rounded-lg shadow-xl w-full h-auto object-cover transform transition-transform duration-300 hover:scale-102"
                 />
               </div>
               <div className="lg:w-1/2 text-center lg:text-left">
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
                   Revolutionizing Production for a Leading Automotive Manufacturer
                 </h3>
-                <p className="text-lg text-gray-700 mb-6">
+                <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                   Implemented an AI-powered predictive maintenance system that reduced unplanned downtime by 25% and optimized energy consumption by 15% across their main assembly lines.
                 </p>
-                <ul className="list-disc list-inside text-gray-600 mb-6 text-left mx-auto lg:mx-0 max-w-md">
+                <ul className="list-disc list-inside text-gray-600 mb-6 text-left mx-auto lg:mx-0 max-w-md space-y-1">
                   <li>25% Reduction in Downtime</li>
                   <li>15% Energy Optimization</li>
                   <li>Real-time Anomaly Detection</li>
                   <li>Seamless Integration</li>
                 </ul>
-                <Button to="/case-studies/automotive" variant="primary">
+                <Button to="/contact?inquiry=case-study-automotive" variant="primary">
                   Read Full Case Study
                 </Button>
               </div>
@@ -149,19 +195,10 @@ const HomePage = () => {
               title="What Our Clients Say"
               subtitle="Voices of Trust"
             />
-            {/* This would ideally be a carousel component (e.g., using Swiper.js) */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {testimonialsData.map((testimonial, index) => (
-                <TestimonialCard key={index} {...testimonial} />
+                <TestimonialCard key={index} {...testimonial} className="animate-fade-in-up-100" />
               ))}
-            </div>
-            {/* Placeholder for carousel navigation if implemented */}
-            <div className="mt-8 text-center">
-              {/* <div className="inline-flex space-x-2">
-                <button className="w-3 h-3 rounded-full bg-gray-300 hover:bg-indigo-500 transition-colors"></button>
-                <button className="w-3 h-3 rounded-full bg-indigo-600"></button>
-                <button className="w-3 h-3 rounded-full bg-gray-300 hover:bg-indigo-500 transition-colors"></button>
-              </div> */}
             </div>
           </div>
         </section>
@@ -179,16 +216,13 @@ const HomePage = () => {
               <Button to="/contact" variant="light-outline" className="min-w-[200px] border-2">
                 Get in Touch
               </Button>
-              <Button to="/services" variant="primary" className="min-w-[200px] bg-white text-indigo-800 hover:bg-indigo-100">
-                View All Services
+              <Button to="/iot-solutions" variant="primary" className="min-w-[200px] bg-white text-indigo-800 hover:bg-indigo-100">
+                View All Solutions
               </Button>
             </div>
           </div>
         </section>
-
       </main>
-
-      {/* Removed Footer and Navbar from HomePage.jsx */}
     </div>
   );
 };

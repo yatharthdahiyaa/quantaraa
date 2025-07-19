@@ -1,9 +1,28 @@
 /* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* src/index.css - Add this at the bottom if you want a custom scrollbar */
-/* For Webkit browsers (Chrome, Safari) */
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar for Webkit browsers (Chrome, Safari) */
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
 }
@@ -22,8 +41,13 @@
   background: #555;
 }
 
-/* For Firefox */
+/* Custom Scrollbar for Firefox */
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f1;
+}
+
+/* General body font */
+body {
+  font-family: 'Inter', sans-serif;
 }

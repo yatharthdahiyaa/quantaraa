@@ -1,41 +1,59 @@
+// src/pages/PrototypesPage.jsx
 import { useState } from 'react';
 import Button from '../components/Button';
-import Card from '../components/Card'; // Assuming Card.jsx is available
+import Card from '../components/Card';
+import ProductCard from '../components/ProductCard';
 import SectionHeader from '../components/SectionHeader';
 
-// Dummy Data for Ready Prototypes
+// Dummy Data for Ready Prototypes (Expanded with more detail)
 const readyPrototypes = [
   {
     id: 1,
     name: 'Smart Factory IoT Gateway',
     description: 'A robust IoT gateway for real-time data collection from industrial sensors and machinery.',
-    image: 'https://placehold.co/400x250/F0F9FF/1D4ED8?text=IoT+Gateway', // Placeholder image
-    features: ['Edge Computing', 'MQTT/OPC-UA Support', 'Secure Data Transmission', 'Cloud Integration'],
-    link: '#', // Placeholder for a detailed page or demo
+    longDescription: 'This cutting-edge gateway is designed for harsh industrial environments, ensuring reliable data acquisition from diverse sensors (temperature, humidity, pressure, vibration, etc.). It supports multiple industrial protocols (Modbus, OPC-UA) and securely transmits data via MQTT to your chosen cloud platform (AWS IoT, Azure IoT Hub, Google Cloud IoT Core) or local ThingsBoard/Grafana instances. Features include edge processing capabilities, secure boot, and remote management.',
+    image: 'https://placehold.co/400x250/F0F9FF/1D4ED8?text=IoT+Gateway',
+    features: ['Edge Computing', 'MQTT/OPC-UA Support', 'Secure Data Transmission', 'Cloud Integration', 'Remote Management', 'Industrial Grade'],
+    useCases: ['Predictive Maintenance', 'Asset Tracking', 'Energy Monitoring', 'Process Optimization'],
+    demoVideoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    price: 35000,
+    category: 'Prototype',
   },
   {
     id: 2,
     name: 'AI-Powered Quality Inspection Unit',
     description: 'Automated visual inspection system using computer vision for defect detection in manufacturing lines.',
-    image: 'https://placehold.co/400x250/FDF2F8/BE185D?text=AI+Inspection', // Placeholder image
-    features: ['Real-time Analysis', 'Machine Learning Models', 'High Precision', 'Integration with PLCs'],
-    link: '#',
+    longDescription: 'Our AI-powered unit leverages deep learning models (CNNs) to identify microscopic defects, anomalies, and inconsistencies on production lines at high speed. It integrates seamlessly with existing conveyor systems and robotic arms, providing real-time feedback and flagging defective products. Reduces manual inspection errors and significantly improves throughput and quality standards.',
+    image: 'https://placehold.co/400x250/FDF2F8/BE185D?text=AI+Inspection',
+    features: ['Real-time Analysis', 'Machine Learning Models', 'High Precision', 'Integration with PLCs', 'Customizable Defect Libraries', 'Scalable'],
+    useCases: ['Automotive Parts Inspection', 'Electronics QC', 'Food & Beverage Packaging', 'Textile Defect Detection'],
+    demoVideoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    price: 80000,
+    category: 'Prototype',
   },
   {
     id: 3,
     name: 'Predictive Maintenance Sensor Kit',
     description: 'Wireless sensor package designed to monitor equipment health and predict potential failures.',
-    image: 'https://placehold.co/400x250/FEFCE8/A16207?text=Predictive+Maint', // Placeholder image
-    features: ['Vibration/Temperature Sensors', 'Anomaly Detection', 'Cloud Dashboard', 'Alerting System'],
-    link: '#',
+    longDescription: 'This comprehensive sensor kit includes vibration, temperature, and acoustic sensors designed for continuous monitoring of industrial machinery. Data is transmitted wirelessly to a local gateway or cloud, where AI algorithms analyze patterns to predict potential failures, enabling proactive maintenance and preventing costly downtime.',
+    image: 'https://placehold.co/400x250/FEFCE8/A16207?text=Predictive+Maint',
+    features: ['Vibration/Temperature Sensors', 'Anomaly Detection', 'Cloud Dashboard', 'Alerting System', 'Wireless Connectivity', 'Easy Installation'],
+    useCases: ['Motor Monitoring', 'Pump Health', 'Conveyor Belt Diagnostics', 'HVAC Systems'],
+    demoVideoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    price: 25000,
+    category: 'Prototype',
   },
   {
     id: 4,
     name: 'Automated Inventory Management Drone',
     description: 'Autonomous drone solution for rapid and accurate warehouse inventory counting and tracking.',
-    image: 'https://placehold.co/400x250/ECFDF5/065F46?text=Inventory+Drone', // Placeholder image
-    features: ['SLAM Navigation', 'RFID/Barcode Scanning', 'Automated Charging', 'Data Synchronization'],
-    link: '#',
+    longDescription: 'Our advanced drone system autonomously navigates warehouses, using computer vision and RFID/barcode scanning to perform rapid inventory counts. It significantly reduces manual labor, improves accuracy, and provides real-time inventory data, optimizing supply chain efficiency and reducing stock discrepancies.',
+    image: 'https://placehold.co/400x250/ECFDF5/065F46?text=Inventory+Drone',
+    features: ['SLAM Navigation', 'RFID/Barcode Scanning', 'Automated Charging', 'Data Synchronization', 'Collision Avoidance', 'Customizable Flight Paths'],
+    useCases: ['Warehouse Inventory', 'Logistics Hubs', 'Retail Stock Management', 'Asset Tracking'],
+    demoVideoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    price: 120000,
+    category: 'Prototype',
   },
 ];
 
@@ -49,7 +67,7 @@ const PrototypesPage = () => {
     budgetRange: '',
     timeline: '',
   });
-  const [submissionStatus, setSubmissionStatus] = useState(null); // 'success', 'error', null
+  const [submissionStatus, setSubmissionStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -62,7 +80,6 @@ const PrototypesPage = () => {
     setIsLoading(true);
     setSubmissionStatus(null);
 
-    // TODO: Replace with your actual API endpoint for submitting prototype ideas
     try {
       const response = await fetch('/api/submit-prototype-idea', {
         method: 'POST',
@@ -74,7 +91,7 @@ const PrototypesPage = () => {
 
       if (response.ok) {
         setSubmissionStatus('success');
-        setIdeaFormData({ // Clear form
+        setIdeaFormData({
           name: '', email: '', company: '', projectTitle: '', description: '', budgetRange: '', timeline: ''
         });
       } else {
@@ -93,10 +110,10 @@ const PrototypesPage = () => {
   return (
     <div className="bg-gray-50 font-sans antialiased">
       {/* Hero Banner */}
-      <section className="relative py-24 bg-gradient-to-r from-teal-600 to-green-700 text-white text-center">
+      <section className="relative py-24 bg-gradient-to-r from-teal-600 to-green-700 text-white text-center shadow-lg">
         <div className="container mx-auto px-6">
-          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4">Innovative Prototypes</h1>
-          <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-up">Innovative Prototypes</h1>
+          <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto animate-fade-in-up-200">
             From groundbreaking concepts to ready-to-deploy solutions, we bring your industrial visions to life.
           </p>
         </div>
@@ -108,10 +125,9 @@ const PrototypesPage = () => {
           <SectionHeader
             title="Have a Prototype Idea?"
             subtitle="Let Us Help You Build It"
-            className="mb-10"
           />
-          <Card className="p-8 shadow-lg">
-            <p className="text-lg text-gray-700 mb-8 text-center">
+          <Card className="p-8 shadow-lg animate-fade-in-up-100">
+            <p className="text-lg text-gray-700 mb-8 text-center leading-relaxed">
               Share your project concept with us, and our expert team will collaborate with you to
               transform your innovative ideas into functional prototypes and robust solutions.
             </p>
@@ -124,7 +140,7 @@ const PrototypesPage = () => {
                   name="name"
                   value={ideaFormData.name}
                   onChange={handleChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
                   required
                 />
               </div>
@@ -136,7 +152,7 @@ const PrototypesPage = () => {
                   name="email"
                   value={ideaFormData.email}
                   onChange={handleChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
                   required
                 />
               </div>
@@ -148,7 +164,7 @@ const PrototypesPage = () => {
                   name="company"
                   value={ideaFormData.company}
                   onChange={handleChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
                 />
               </div>
               <div className="md:col-span-2">
@@ -159,7 +175,7 @@ const PrototypesPage = () => {
                   name="projectTitle"
                   value={ideaFormData.projectTitle}
                   onChange={handleChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
                   required
                 />
               </div>
@@ -171,7 +187,7 @@ const PrototypesPage = () => {
                   rows="5"
                   value={ideaFormData.description}
                   onChange={handleChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y"
+                  className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y transition-all duration-200"
                   required
                 ></textarea>
               </div>
@@ -182,7 +198,7 @@ const PrototypesPage = () => {
                   name="budgetRange"
                   value={ideaFormData.budgetRange}
                   onChange={handleChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
                   required
                 >
                   <option value="">Select a range</option>
@@ -199,7 +215,7 @@ const PrototypesPage = () => {
                   name="timeline"
                   value={ideaFormData.timeline}
                   onChange={handleChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow-sm appearance-none border rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
                   required
                 >
                   <option value="">Select a timeline</option>
@@ -214,10 +230,10 @@ const PrototypesPage = () => {
                   {isLoading ? 'Submitting Idea...' : 'Submit Your Idea'}
                 </Button>
                 {submissionStatus === 'success' && (
-                  <p className="text-green-600 mt-4">Idea submitted successfully! We'll be in touch soon.</p>
+                  <p className="text-green-600 mt-4 animate-fade-in">Idea submitted successfully! We'll be in touch soon.</p>
                 )}
                 {submissionStatus === 'error' && (
-                  <p className="text-red-600 mt-4">Failed to submit idea. Please try again later.</p>
+                  <p className="text-red-600 mt-4 animate-fade-in">Failed to submit idea. Please try again later.</p>
                 )}
               </div>
             </form>
@@ -231,35 +247,14 @@ const PrototypesPage = () => {
           <SectionHeader
             title="Our Ready Prototypes"
             subtitle="Accelerate Your Project with Proven Solutions"
-            className="mb-10"
           />
-          <p className="text-center text-lg text-gray-700 max-w-3xl mx-auto mb-12">
+          <p className="text-center text-lg text-gray-700 max-w-3xl mx-auto mb-12 leading-relaxed">
             Explore our catalog of pre-built, production-ready prototypes. These solutions are
             designed to jumpstart your projects, offering immediate implementation and customization possibilities.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
-            {readyPrototypes.map((prototype) => (
-              <Card key={prototype.id} className="p-6 flex flex-col md:flex-row gap-6 items-center">
-                <img
-                  src={prototype.image}
-                  alt={prototype.name}
-                  className="w-full md:w-1/3 h-48 md:h-full object-cover rounded-md shadow-md"
-                />
-                <div className="md:w-2/3 flex flex-col justify-between h-full">
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-800 mb-2">{prototype.name}</h3>
-                    <p className="text-gray-700 mb-4">{prototype.description}</p>
-                    <ul className="list-disc list-inside text-gray-600 mb-4">
-                      {prototype.features.map((feature, index) => (
-                        <li key={index}>{feature}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <Button to={prototype.link} variant="secondary" className="mt-auto self-start">
-                    Learn More / Request Demo
-                  </Button>
-                </div>
-              </Card>
+            {readyPrototypes.map((prototype, index) => (
+              <ProductCard key={prototype.id} {...prototype} className={`animate-fade-in-up-${(index + 1) * 100}`} />
             ))}
           </div>
         </div>

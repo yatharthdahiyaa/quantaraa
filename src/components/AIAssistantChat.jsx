@@ -1,16 +1,15 @@
 // src/components/AIAssistantChat.jsx
 import { useEffect, useRef, useState } from 'react';
-import Button from './Button'; // Assuming Button.jsx exists
-import Card from './Card'; // Assuming Card.jsx exists
+import Button from './Button';
+import Card from './Card';
 
-const AIAssistantChat = () => {
+const AIAssistantChat = ({ className = '' }) => { // Added className prop
   const [chatHistory, setChatHistory] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const chatEndRef = useRef(null); // Ref for auto-scrolling chat
+  const chatEndRef = useRef(null);
 
-  // Auto-scroll to the bottom of the chat when new messages arrive
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory]);
@@ -24,12 +23,9 @@ const AIAssistantChat = () => {
     setIsLoading(true);
     setError(null);
 
-    const prompt = userInput; // The user's current input is the prompt for the AI
+    const prompt = userInput;
 
     try {
-      // THIS IS THE CRITICAL LINE: Accessing the API key from Vite's environment variables
-      // For local development, it comes from VITE_GEMINI_API_KEY in .env
-      // For Canvas environment, the global __api_key is provided.
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (typeof __api_key !== 'undefined' ? __api_key : '');
 
       if (!apiKey) {
@@ -76,14 +72,14 @@ const AIAssistantChat = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault(); // Prevent new line in textarea
+      e.preventDefault();
       sendMessage();
     }
   };
 
   return (
-    <Card className="p-6 flex flex-col h-[600px] max-h-[70vh] w-full max-w-3xl mx-auto border border-gray-200 shadow-xl">
-      <div className="flex-grow overflow-y-auto p-4 bg-gray-50 rounded-lg mb-4 custom-scrollbar">
+    <Card className={`p-6 flex flex-col h-[600px] max-h-[70vh] w-full max-w-3xl mx-auto border border-gray-200 ${className}`}>
+      <div className="flex-grow overflow-y-auto p-4 bg-gray-50 rounded-lg mb-4 custom-scrollbar shadow-inner">
         {chatHistory.length === 0 ? (
           <div className="text-center text-gray-500 italic mt-10">
             Welcome! Ask me anything about AI solutions for your industry, or how Quantaraa can help.
@@ -92,7 +88,7 @@ const AIAssistantChat = () => {
           chatHistory.map((msg, index) => (
             <div key={index} className={`mb-4 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
               <div
-                className={`inline-block p-3 rounded-lg max-w-[80%] ${
+                className={`inline-block p-3 rounded-xl max-w-[80%] break-words shadow-sm ${ // Added break-words, rounded-xl, shadow-sm
                   msg.role === 'user'
                     ? 'bg-indigo-600 text-white'
                     : 'bg-gray-200 text-gray-800'
@@ -105,7 +101,7 @@ const AIAssistantChat = () => {
         )}
         {isLoading && (
           <div className="text-left mb-4">
-            <div className="inline-block p-3 rounded-lg bg-gray-200 text-gray-800">
+            <div className="inline-block p-3 rounded-xl bg-gray-200 text-gray-800 shadow-sm">
               <div className="flex items-center">
                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -117,16 +113,16 @@ const AIAssistantChat = () => {
           </div>
         )}
         {error && (
-          <div className="text-center text-red-600 mt-4 p-3 bg-red-100 rounded-lg">
+          <div className="text-center text-red-600 mt-4 p-3 bg-red-100 rounded-lg border border-red-200 animate-fade-in">
             Error: {error}
           </div>
         )}
-        <div ref={chatEndRef} /> {/* Scroll target */}
+        <div ref={chatEndRef} />
       </div>
 
       <div className="flex">
         <textarea
-          className="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+          className="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none transition-all duration-200"
           placeholder="Ask me a question..."
           rows="1"
           value={userInput}

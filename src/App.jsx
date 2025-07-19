@@ -2,10 +2,10 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AboutUsPage from './pages/AboutUsPage';
 import AISolutionsPage from './pages/AISolutionsPage';
-import ContactPage from './pages/ContactPage'; // UNCOMMENT THIS LINE
-
+import ContactPage from './pages/ContactPage';
 import HomePage from './pages/HomePage';
 import IndustryLoginPage from './pages/IndustryLoginPage';
+import IoTSolutionsPage from './pages/IoTSolutionsPage'; // UNCOMMENT THIS LINE
 import PrototypesPage from './pages/PrototypesPage';
 import ThreeDPrintingPage from './pages/ThreeDPrintingPage';
 
@@ -23,9 +23,10 @@ function App() {
           <Route path="/login" element={<IndustryLoginPage />} />
           <Route path="/prototypes" element={<PrototypesPage />} />
           <Route path="/3d-printing" element={<ThreeDPrintingPage />} />
-          
+        
           <Route path="/ai-solutions" element={<AISolutionsPage />} />
-          <Route path="/contact" element={<ContactPage />} /> {/* UNCOMMENT THIS LINE */}
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/iot-solutions" element={<IoTSolutionsPage />} /> {/* UNCOMMENT THIS LINE */}
 
           {/* Add a 404 Not Found page */}
           <Route path="*" element={<div className="text-center p-8 text-red-600">404 - Page Not Found</div>} />
